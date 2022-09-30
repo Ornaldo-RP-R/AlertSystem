@@ -5,8 +5,12 @@ import "./theme/app.scss";
 function App() {
   return (
     <div className="App">
-      {data.map(({ type, message, text }) => (
-        <button className="fire-button" key={message + text + type} onClick={() => throwAlert({ type, message })}>
+      {data.map(({ type, message, text, duration }) => (
+        <button
+          className="fire-button"
+          key={message + text + type}
+          onClick={() => throwAlert({ type, message, duration })}
+        >
           {text}
         </button>
       ))}
@@ -21,7 +25,13 @@ const data = [
   {
     type: "info",
     message: "Long long aksjdkajdsksalfjalksjdkajfkaljsdklajskfljaklfjaksljdkaljfkaskjldjasklfja",
-    text: "Add success alert",
+    text: "Add info alert",
+  },
+  {
+    type: "info",
+    message: "Hello",
+    text: "Add info long duration alert",
+    duration: 50000,
   },
 ];
 

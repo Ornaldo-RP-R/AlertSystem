@@ -1,21 +1,21 @@
 import React from "react";
 import Alert from "../components/Alert";
 import { connect } from "redux-zero/react";
+import { getAlertIds } from "../redux/selectors/alerts";
+import { createStructuredSelector } from "reselect";
 
 const Alerts = (props) => {
-  const { alerts } = props;
+  const { alertIds } = props;
   return (
     <div className="alerts-container">
-      <div className="alerts-parent">
-        <div className="alerts">
-          {alerts.map((alert) => (
-            <Alert {...alert} key={alert?.id + alert?.message} />
-          ))}
-        </div>
+      <div className="alerts">
+        {alertIds.map((id) => (
+          <Alert key={id} id={id} />
+        ))}
       </div>
     </div>
   );
 };
 
-const mapToProps = ({ alerts }) => ({ alerts });
-export default connect(mapToProps, null)(Alerts);
+const mapStateToProps = createStructuredSelector({ alertIds: getAlertIds });
+export default connect(mapStateToProps, null)(Alerts);

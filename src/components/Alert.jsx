@@ -1,9 +1,13 @@
 import React, { useCallback, useMemo, useState, useRef, useEffect } from "react";
 import { connect } from "redux-zero/react";
 import { removeAlert } from "../redux/actions/alert";
+import { createStructuredSelector } from "reselect";
+import { getAlert } from "../redux/selectors/alerts";
 
 const Alert = (props) => {
-  const { message, type, removeAlert, id, icon, closeIcon, duration } = props;
+  const { alert, removeAlert } = props;
+  const { message, type, id, icon, closeIcon } = alert || {};
+  const duration = alert?.duration || 5000;
   let timerCleaner = useRef();
   const key = id + message;
   const [className, setClassName] = useState({ [key]: "" });
@@ -43,10 +47,7 @@ const Alert = (props) => {
   );
 };
 
-Alert.defaultProps = {
-  duration: 5000,
-};
-
+const mapStateToProps = createStructuredSelector({ alert: getAlert });
 const mapDispatchToProps = (d, props) => ({ removeAlert: (store) => removeAlert(store, props?.id) });
 
-export default connect(null, mapDispatchToProps)(Alert);
+export default connect(mapStateToProps, mapDispatchToProps)(Alert);
