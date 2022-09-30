@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import throwAlert from "./helpers/useAlert";
+import "./theme/alert.scss"
+import "./theme/app.scss";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data.map(({ type, message, text }) => (
+        <button className="fire-button" key={message + text + type} onClick={() => throwAlert({ type, message })}>
+          {text}
+        </button>
+      ))}
     </div>
   );
 }
+
+const data = [
+  { type: "success", message: "Your application is sent.", text: "Add success Alert" },
+  { type: "danger", message: "Your danger text", text: "Add danger alert" },
+  { type: "warning", message: "Your warning text", text: "Add warning alert" },
+  {
+    type: "info",
+    message: "Long long aksjdkajdsksalfjalksjdkajfkaljsdklajskfljaklfjaksljdkaljfkaskjldjasklfja",
+    text: "Add success alert",
+  },
+];
 
 export default App;
